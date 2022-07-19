@@ -1,19 +1,17 @@
 import "./App.css";
 
 import * as React from "react";
+// import useState from "react";
 
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 // import SaveIcon from "@mui/icons-material/Save";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import TextField from "@mui/material/TextField";
-
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
-
-// app.get();
+// import ButtonGroup from "@mui/material/ButtonGroup";
+// import TextField from "@mui/material/TextField";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 const days = [
     {
@@ -38,11 +36,33 @@ const days = [
     },
 ];
 
-function valuetext(value) {
-    return `${value}`;
-}
-
 function App() {
+    const [house, setHouse] = React.useState("house");
+    const [transport, setTransport] = React.useState("transport");
+    const [places, setPlaces] = React.useState("places");
+    // const [input, setInput] = React.useState("input");
+
+    const handleChangeHouse = (event, newHouse) => {
+        const value = event.target.value;
+        console.log(value);
+        setHouse(value);
+    };
+
+    const handleChangeTransport = (event, newTransport) => {
+        setTransport(newTransport);
+        const value = event.target.value;
+        console.log(value);
+    };
+
+    const handleChangePlaces = (event, newPlace) => {
+        setPlaces(newPlace);
+    };
+
+    function valuetext(value) {
+        return `${value}`;
+    }
+
+    //ToDo:
     return (
         <>
             <h1 className="text-3xl font-bold text-center mt-16">
@@ -91,15 +111,16 @@ function App() {
                     },
                 }}
             >
-                <ButtonGroup
-                    variant="outlined"
-                    aria-label="outlined button group"
+                <ToggleButtonGroup
                     color="secondary"
+                    value={house}
+                    exclusive
+                    onChange={handleChangeHouse}
                 >
-                    <Button>Free</Button>
-                    <Button>Hotel</Button>
-                    <Button>Rent house</Button>
-                </ButtonGroup>
+                    <ToggleButton value="free">Free</ToggleButton>
+                    <ToggleButton value="hotel">Hotel</ToggleButton>
+                    <ToggleButton value="renthouse">Rent House</ToggleButton>
+                </ToggleButtonGroup>
             </Box>
             <div className="flex flex-row justify-between mt-6">
                 <h2>Передвижение..</h2>
@@ -116,30 +137,22 @@ function App() {
                     },
                 }}
             >
-                <ButtonGroup
-                    variant="outlined"
-                    aria-label="outlined button group"
+                <ToggleButtonGroup
                     color="secondary"
+                    value={transport}
+                    exclusive
+                    onChange={handleChangeTransport}
                 >
-                    <Button>bus</Button>
-                    <Button>taxi</Button>
-                    <Button>bus + taxi</Button>
-                    <Button>anytime</Button>
-                    <Button>own car</Button>
-                </ButtonGroup>
+                    <ToggleButton value="bus">Bus</ToggleButton>
+                    <ToggleButton value="taxi">Taxi</ToggleButton>
+                    <ToggleButton value="bustaxi">Bus + Taxi</ToggleButton>
+                    <ToggleButton value="anytime">Anytime</ToggleButton>
+                    <ToggleButton value="car">Rent Car</ToggleButton>
+                </ToggleButtonGroup>
             </Box>
             <div className="flex flex-row justify-between mt-6">
                 <h2>Планирую поситить..</h2>
                 <h2>Planning to visit..</h2>
-            </div>
-            <div className="flex justify-center mt-6 mb-6">
-                <TextField
-                    id="filled-search"
-                    label="Places, restaurants etc.."
-                    type="search"
-                    variant="filled"
-                    color="secondary"
-                />
             </div>
         </>
     );
