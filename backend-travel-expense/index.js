@@ -2,13 +2,14 @@ import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
 import cheer from "cheerio";
+import cors from "cors";
 //import { children } from "cheerio/lib/api/traversing.js";
 
 const app = express();
 const port = 8080;
 const url = "https://www.tripadvisor.com/Hotels-g298251-Almaty-Hotels.html";
 
-axios(url)
+const po = axios(url)
     .then((response) => {
         const html = response.data;
         const $ = cheer.load(html);
@@ -66,4 +67,13 @@ axios(url)
     })
     .catch((err) => console.log(`Error happened in PORT ${port}`));
 
-app.listen(port, () => console.log(`server is working on PORT ${port}`));
+let smth = [{ name: "Aidyn", company: "Janat" }];
+
+app.use(cors());
+
+app.get("/hotel", (req, res) => {
+    // res.send({ message: "We did it!" });
+    res.status(200).json();
+});
+
+app.listen(port, () => console.log(`Server is working on PORT ${port}`));

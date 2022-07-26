@@ -12,40 +12,46 @@ import Typography from "@mui/material/Typography";
 // import TextField from "@mui/material/TextField";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
-const days = [
-    {
-        value: 1,
-        label: "1",
-    },
-    {
-        value: 3,
-        label: "3",
-    },
-    {
-        value: 5,
-        label: "5",
-    },
-    {
-        value: 7,
-        label: "7",
-    },
-    {
-        value: 10,
-        label: "10",
-    },
-];
+import { placeList } from "./data/place-list.js";
+import { dayList } from "./data/day-list.js";
+import { houseList } from "./data/house-list";
+import { transportList } from "./data/transport-list";
+
+import axios from "axios";
+
+const BACKEND_URL = "http://localhost:8080/hotel";
 
 function App() {
-    const [house, setHouse] = React.useState("house");
-    const [transport, setTransport] = React.useState("transport");
-    const [places, setPlaces] = React.useState("places");
+    axios.get(`${BACKEND_URL}`).then((response) => {
+        console.log(response);
+    });
+
+    const [sliderDay, setSliderDay] = React.useState(0);
+    const [house, setHouse] = React.useState(0);
+    const [transport, setTransport] = React.useState(0);
+    const [places, setPlaces] = React.useState(0);
+    const [sum, setSum] = React.useState(0);
     // const [input, setInput] = React.useState("input");
 
-    const handleChangeHouse = (event, newHouse) => {
+    React.useEffect(() => {
+        let sum = (parseInt(house) + parseInt(transport)) * sliderDay + places;
+        setSum(sum);
+        console.log(sum);
+    }, [house, sliderDay, transport, places]);
+
+    const handleChangeDay = (event, day) => {
         const value = event.target.value;
         console.log(value);
-        setHouse(value);
+        setSliderDay(day);
+    };
+
+    const handleChangeHouse = (event, newHouse) => {
+        setHouse(newHouse);
+        const value = event.target.value;
+        console.log(value);
     };
 
     const handleChangeTransport = (event, newTransport) => {
@@ -61,6 +67,19 @@ function App() {
     function valuetext(value) {
         return `${value}`;
     }
+
+    const handleResult = () => {
+        console.log(`${handleChangeHouse} + ${handleChangeTransport}`);
+    };
+
+    const pickPlaces = (event, value) => {
+        const placeValue = value
+            .map((price) => price.value)
+            .reduce((partialSum, a) => partialSum + a, 0);
+
+        console.log(placeValue);
+        setPlaces(placeValue);
+    };
 
     //ToDo:
     return (
@@ -84,15 +103,15 @@ function App() {
                     <Slider
                         color="secondary"
                         aria-label="Days"
-                        defaultValue={3}
+                        defaultValue={0}
                         getAriaValueText={valuetext}
                         valueLabelDisplay="auto"
                         step={1}
                         marks
-                        min={1}
+                        min={0}
                         max={10}
-                        marks={days}
-                        onChange={(event) => console.log(event.target.value)}
+                        //marks={sliderDay}
+                        onChange={handleChangeDay}
                     />
                 </Box>
             </div>
@@ -117,9 +136,9 @@ function App() {
                     exclusive
                     onChange={handleChangeHouse}
                 >
-                    <ToggleButton value="free">Free</ToggleButton>
-                    <ToggleButton value="hotel">Hotel</ToggleButton>
-                    <ToggleButton value="renthouse">Rent House</ToggleButton>
+                    <ToggleButton value="0">Free</ToggleButton>
+                    <ToggleButton value="5000">Hotel 5k</ToggleButton>
+                    <ToggleButton value="20000">Rent House 20k</ToggleButton>
                 </ToggleButtonGroup>
             </Box>
             <div className="flex flex-row justify-between mt-6">
@@ -143,17 +162,41 @@ function App() {
                     exclusive
                     onChange={handleChangeTransport}
                 >
-                    <ToggleButton value="bus">Bus</ToggleButton>
-                    <ToggleButton value="taxi">Taxi</ToggleButton>
-                    <ToggleButton value="bustaxi">Bus + Taxi</ToggleButton>
-                    <ToggleButton value="anytime">Anytime</ToggleButton>
-                    <ToggleButton value="car">Rent Car</ToggleButton>
+                    <ToggleButton value="1000">Bus 1k</ToggleButton>
+                    <ToggleButton value="2000">Taxi 2k</ToggleButton>
+                    <ToggleButton value="3000">Bus + Taxi 3k</ToggleButton>
+                    <ToggleButton value="4000">Anytime 4k</ToggleButton>
+                    <ToggleButton value="5000">Rent Car 5k</ToggleButton>
                 </ToggleButtonGroup>
             </Box>
             <div className="flex flex-row justify-between mt-6">
                 <h2>Планирую поситить..</h2>
                 <h2>Planning to visit..</h2>
             </div>
+            <div className="mt-12 flex justify-center">
+                <Autocomplete
+                    //className="mt-10 flex place-content-center	"
+                    multiple
+                    limitTags={2}
+                    id="multiple-limit-tags"
+                    options={placeList}
+                    onChange={pickPlaces}
+                    getOptionLabel={(option) => option.name}
+                    // defaultValue={[placeList[0]]}
+                    renderInput={(params) => {
+                        return (
+                            <TextField
+                                {...params}
+                                color="secondary"
+                                label="limitTags"
+                                placeholder="Favorites"
+                            />
+                        );
+                    }}
+                    sx={{ width: "250px" }}
+                />
+            </div>
+            <div className="text-center mt-12 mb-12 text-3xl">{sum}₸</div>
         </>
     );
 }
