@@ -24,10 +24,15 @@ import axios from "axios";
 
 const BACKEND_URL = "http://localhost:8080/hotel";
 
+// const hotelsAveragePrice = 0;
+
 function App() {
+    let hotelsAveragePrice = 0;
     axios.get(`${BACKEND_URL}`).then((response) => {
-        console.log(response);
+        // console.log(response.data);
+        return response.data;
     });
+    console.log(hotelsAveragePrice);
 
     const [sliderDay, setSliderDay] = React.useState(0);
     const [house, setHouse] = React.useState(0);
@@ -137,7 +142,9 @@ function App() {
                     onChange={handleChangeHouse}
                 >
                     <ToggleButton value="0">Free</ToggleButton>
-                    <ToggleButton value="5000">Hotel 5k</ToggleButton>
+                    <ToggleButton value={hotelsAveragePrice}>
+                        Hotel 5k
+                    </ToggleButton>
                     <ToggleButton value="20000">Rent House 20k</ToggleButton>
                 </ToggleButtonGroup>
             </Box>
@@ -188,12 +195,12 @@ function App() {
                             <TextField
                                 {...params}
                                 color="secondary"
-                                label="limitTags"
-                                placeholder="Favorites"
+                                label="Места"
+                                placeholder="Выбирай"
                             />
                         );
                     }}
-                    sx={{ width: "250px" }}
+                    sx={{ width: "300px" }}
                 />
             </div>
             <div className="text-center mt-12 mb-12 text-3xl">{sum}₸</div>

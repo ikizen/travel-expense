@@ -8,7 +8,7 @@ import cors from "cors";
 const app = express();
 const port = 8080;
 const url = "https://www.tripadvisor.com/Hotels-g298251-Almaty-Hotels.html";
-
+let smth;
 const po = axios(url)
     .then((response) => {
         const html = response.data;
@@ -64,16 +64,17 @@ const po = axios(url)
         const resultResult =
             (parseInt(resultMarMay) + parseInt(resultSepNov)) / 2;
         console.log(resultResult);
+        smth = resultResult;
     })
     .catch((err) => console.log(`Error happened in PORT ${port}`));
 
-let smth = [{ name: "Aidyn", company: "Janat" }];
+// let smth = [{ name: "Aidyn", company: "Janat" }];
 
 app.use(cors());
 
 app.get("/hotel", (req, res) => {
     // res.send({ message: "We did it!" });
-    res.status(200).json();
+    res.status(200).json(smth);
 });
 
 app.listen(port, () => console.log(`Server is working on PORT ${port}`));
