@@ -4,17 +4,23 @@ import axios from "axios";
 import cheer from "cheerio";
 import cors from "cors";
 import cron from "node-cron";
+// import { find } from "cheerio/lib/api/traversing";
 //import { children } from "cheerio/lib/api/traversing.js";
 
 const app = express();
 const port = 8080;
-const url = "https://www.tripadvisor.com/Hotels-g298251-Almaty-Hotels.html";
+const urlHotel =
+    "https://www.tripadvisor.com/Hotels-g298251-Almaty-Hotels.html";
 
-let smth;
-cron.schedule("* */10 * * * *", function () {
+const urlTaxi = "https://www.numbeo.com/taxi-fare/in/Almaty";
+
+let hotelResult;
+let transportTaxiResult;
+cron.schedule("* * * * * *", function () {
+    // "* */10 * * * *"
     // Task to do
-    console.log("111");
-    const po = axios(url)
+    console.log("Cron schedule is working)))");
+    const hotel = axios(urlHotel)
         .then((response) => {
             const html = response.data;
             const $ = cheer.load(html);
@@ -69,18 +75,34 @@ cron.schedule("* */10 * * * *", function () {
             const resultResult =
                 (parseInt(resultMarMay) + parseInt(resultSepNov)) / 2;
             console.log(resultResult);
-            smth = resultResult;
+            hotelResult = resultResult;
         })
         .catch((err) => console.log(`Error happened in PORT ${port}`));
+    // const taxi = axios(urlTaxi).then((response) => {
+    //     const html = response.data;
+    //     const $ = cheer.load(html);
+    //     const arrayTaxi = [];
+    //     const taxi = $(".innerWidth")
+    //         .children(".standard_margin")
+    //         .first()
+    //         .find("tbody")
+    //         .children(".tr_standard")
+    //         .children("td:nth-child(2)")
+    //         .html();
+    //     console.log(taxi);
+    //     transportTaxiResult = taxi;
+    //     arrayTaxi.push(taxi);
 });
-
-// let smth = [{ name: "Aidyn", company: "Janat" }];
 
 app.use(cors());
 
 app.get("/hotel", (req, res) => {
     // res.send({ message: "We did it!" });
-    res.status(200).json(smth);
+    res.status(200).json(hotelResult);
 });
+
+// app.get("/transport", (req, res) => {
+//     res.status(200).json(transportTaxiResult);
+// });
 
 app.listen(port, () => console.log(`Server is working on PORT ${port}`));

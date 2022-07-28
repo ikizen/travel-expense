@@ -15,6 +15,7 @@ import { transportList } from "./data/transport-list";
 import backgroundVideo from "./video/videoplayback.mp4";
 
 import axios from "axios";
+import { ClassNames } from "@emotion/react";
 
 const BACKEND_URL = "http://localhost:8080/hotel";
 
@@ -81,13 +82,14 @@ function App() {
 
     //RETURN STARTS
     return (
-        <>
-            <video autoPlay loop muted id="video" className="video">
-                <source src={backgroundVideo} type="video/mp4" />
-            </video>
+        <div className="flex flex-col">
+            <div>
+                <video autoPlay loop muted id="video" className="video">
+                    <source src={backgroundVideo} type="video/mp4" />
+                </video>
+            </div>
             <div className="body">
                 <SliderComponent handleChange={handleChangeDay} />
-
                 <HouseComponent
                     handleChange={handleChangeHouse}
                     house={house}
@@ -105,7 +107,7 @@ function App() {
 
                 <div className="text-center mt-12 mb-12 text-3xl">{sum}₸</div>
             </div>
-        </>
+        </div>
     );
 }
 

@@ -1,8 +1,20 @@
 import Box from "@mui/material/Box";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
+import axios from "axios";
+import React from "react";
 
+const BACKEND_URL = "http://localhost:8080/hotel";
 export const HouseComponent = ({ handleChange, house }) => {
+    // const parsedHotel = 0;
+    const [parsedHotel, setParsedHotel] = React.useState(0);
+    axios.get(`${BACKEND_URL}`).then((response) => {
+        console.log(response.data);
+        setParsedHotel(response.data);
+        // return parsedHotel + response.data;
+        // return response.data;
+    });
+    // console.log(parsed);
     return (
         <>
             <div className="flex flex-row justify-between mt-6">
@@ -26,9 +38,8 @@ export const HouseComponent = ({ handleChange, house }) => {
                     exclusive
                     onChange={handleChange}
                 >
-                    <ToggleButton value="0">Free</ToggleButton>
-                    <ToggleButton value="5000">Hotel 5k</ToggleButton>
-                    <ToggleButton value="20000">Rent House 20k</ToggleButton>
+                    <ToggleButton value="0">У друзей</ToggleButton>
+                    <ToggleButton value={parsedHotel}>Отель</ToggleButton>
                 </ToggleButtonGroup>
             </Box>
         </>
