@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+
 h1 {
-    font-family: serif;
+    font-family: "Nunito", sans-serif;
     color: black;
     font-size: 14px;
 }
@@ -16,6 +18,8 @@ h1 {
 }
 .body {
     /* position: absolute; */
+    font-family: "Nunito", sans-serif;
+
     margin-top: -300px;
     z-index: 2;
     background-color: #fff;

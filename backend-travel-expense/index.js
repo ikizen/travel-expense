@@ -1,11 +1,11 @@
 import express from "express";
-import bodyParser from "body-parser";
+// import bodyParser from "body-parser";
 import axios from "axios";
 import cheer from "cheerio";
 import cors from "cors";
 import cron from "node-cron";
 // import { find } from "cheerio/lib/api/traversing";
-//import { children } from "cheerio/lib/api/traversing.js";
+// import { children } from "cheerio/lib/api/traversing.js";
 
 const app = express();
 const port = 8080;
@@ -16,10 +16,10 @@ const urlTaxi = "https://www.numbeo.com/taxi-fare/in/Almaty";
 
 let hotelResult;
 let transportTaxiResult;
+let result;
 cron.schedule("* * * * * *", function () {
     // "* */10 * * * *"
-    // Task to do
-    console.log("Cron schedule is working)))");
+    // console.log("Cron schedule is working)))");
     const hotel = axios(urlHotel)
         .then((response) => {
             const html = response.data;
@@ -78,21 +78,31 @@ cron.schedule("* * * * * *", function () {
             hotelResult = resultResult;
         })
         .catch((err) => console.log(`Error happened in PORT ${port}`));
-    // const taxi = axios(urlTaxi).then((response) => {
-    //     const html = response.data;
-    //     const $ = cheer.load(html);
-    //     const arrayTaxi = [];
-    //     const taxi = $(".innerWidth")
-    //         .children(".standard_margin")
-    //         .first()
-    //         .find("tbody")
-    //         .children(".tr_standard")
-    //         .children("td:nth-child(2)")
-    //         .html();
-    //     console.log(taxi);
-    //     transportTaxiResult = taxi;
-    //     arrayTaxi.push(taxi);
+
+    const taxi = axios(urlTaxi).then((response) => {
+        const html = response.data;
+        const $ = cheer.load(html);
+        const arrayTaxi = [];
+        const taxi = $(".innerWidth")
+            .children(".standard_margin")
+            .first()
+            .find("tbody")
+            .children(".tr_standard")
+            .children("td:nth-child(2)")
+            .html();
+        // console.log(taxi);
+        const reg = /\d+/g;
+        arrayTaxi.push(taxi);
+        // let resultTaxi = taxi.match(reg);
+        // const result2Taxi = parseInt(resultTaxi[0] + resultTaxi[1]);
+        // console.log(result2Taxi);
+        // result = result2Taxi;
+    });
+    // .catch((err) => {
+    //     console.log("ERROR in taxi part");
+    // });
 });
+// console.log(result);
 
 app.use(cors());
 
@@ -101,8 +111,8 @@ app.get("/hotel", (req, res) => {
     res.status(200).json(hotelResult);
 });
 
-// app.get("/transport", (req, res) => {
-//     res.status(200).json(transportTaxiResult);
-// });
+app.get("/transport", (req, res) => {
+    res.status(200).json(transportTaxiResult);
+});
 
 app.listen(port, () => console.log(`Server is working on PORT ${port}`));

@@ -9,14 +9,14 @@ export const SliderComponent = ({ handleChange }) => {
 
     return (
         <>
-            <h1 className="text-3xl font-bold text-center">Almaty Travel</h1>
+            <h1 className="text-3xl font-bold text-center">City Travel</h1>
             <div className="flex flex-row justify-between mt-6">
-                <h2>Выберай подходяший варианты</h2>
-                <h2>Choose the appropriate options</h2>
+                <h2>Выбери подходяшие варианты</h2>
+                <h2>Choose your own options</h2>
             </div>
             <div className="flex flex-row justify-between mt-6">
-                <h2>..дней в Алмате</h2>
-                <h2>..days in Almaty</h2>
+                <h2>Количество дней ...</h2>
+                <h2>Number of days ...</h2>
             </div>
             <div className="flex justify-center mt-6">
                 <Box sx={{ width: 300 }}>
