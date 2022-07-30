@@ -18,7 +18,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
+import Box from "@mui/material/Box";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 import backgroundVideo from "./video/videoplayback.mp4";
+import photoAlmaty from "./img/almaty2.jpg";
 
 import axios from "axios";
 import { ClassNames } from "@emotion/react";
@@ -27,17 +30,12 @@ const BACKEND_URL = "http://localhost:8080/hotel";
 
 // FUNCTION STARTS
 function App() {
-    // let hotelsAveragePrice = 0;
     const [parsed, setParsed] = React.useState(0);
 
     axios.get(`${BACKEND_URL}`).then((response) => {
-        // console.log(response.data);
         parsed(response.data);
-
-        // return response.data;
     });
     console.log(parsed);
-    // console.log(hotelsAveragePrice);
 
     const [house, setHouse] = React.useState(0);
     const [transport, setTransport] = React.useState(0);
@@ -48,19 +46,16 @@ function App() {
     React.useEffect(() => {
         let sum = (parseInt(house) + parseInt(transport)) * sliderDay + places;
         setSum(sum);
-        // console.log(sum);
     }, [house, sliderDay, transport, places]);
 
     const handleChangeHouse = (event, newHouse) => {
         setHouse(newHouse);
         const value = event.target.value;
-        // console.log(value);
     };
 
     const handleChangeTransport = (event, newTransport) => {
         setTransport(newTransport);
         const value = event.target.value;
-        // console.log(value);
     };
 
     const handleChangePlaces = (event, newPlace) => {
@@ -86,15 +81,36 @@ function App() {
         setPlaces(placeValue);
     };
 
+    const [open, setOpen] = React.useState(false);
+    const openCard = () => {
+        // console.log("Opening card");
+        setOpen((prev) => !prev);
+    };
+
+    const handleClickAway = () => {
+        setOpen(false);
+    };
+
+    const styles = {
+        position: "absolute",
+        top: 28,
+        right: 0,
+        left: 0,
+        zIndex: 1,
+        border: "1px solid",
+        p: 1,
+        bgcolor: "background.paper",
+    };
+
     //RETURN STARTS
     return (
-        <div className="flex flex-col">
-            <div>
+        <>
+            {/* <div>
                 <video autoPlay loop muted id="video" className="video">
                     <source src={backgroundVideo} type="video/mp4" />
                 </video>
-            </div>
-            <div className="body">
+            </div> */}
+            {/* <div className="body">
                 <SliderComponent handleChange={handleChangeDay} />
                 <HouseComponent
                     handleChange={handleChangeHouse}
@@ -111,28 +127,47 @@ function App() {
                     pickPlaces={pickPlaces}
                 />
 
-                <div className="text-center mt-12 mb-12 text-3xl">{sum}₸</div>
-            </div>
-            {/* <Card sx={{ maxWidth: 245 }}>
+                <div className="text-center mt-12 text-3xl">{sum}₸</div>
+            </div> */}
+
+            <Card
+                sx={{ maxWidth: 200 }}
+                onClick={openCard}
+                className="card"
+                elevation={4}
+                onClickAway={handleClickAway}
+            >
                 <CardActionArea>
                     <CardMedia
                         component="img"
-                        height="100"
-                        image="./img/almaty"
+                        height="60"
+                        image={photoAlmaty}
                         alt="Almaty Photo"
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Lizard
+                            Almaty
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            Lizards are a widespread group of squamate reptiles,
-                            with over 6,000 species
+                            One of the most beautiful cities in Kazakhstan
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-            </Card> */}
-        </div>
+            </Card>
+
+            {/* <ClickAwayListener onClickAway={handleClickAway}> */}
+            <Box sx={{ position: "relative" }}>
+                <button type="button" onClick={openCard}>
+                    Open menu dropdown
+                </button>
+                {open ? (
+                    <Box sx={styles}>
+                        Click me, I will stay visible until you click outside.
+                    </Box>
+                ) : null}
+            </Box>
+            {/* </ClickAwayListener> */}
+        </>
     );
 }
 
