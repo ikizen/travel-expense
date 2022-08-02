@@ -1,6 +1,18 @@
 import "./App.css";
 
 import * as React from "react";
+import { Routes, Route, Link } from "react-router-dom";
+
+import PropTypes from "prop-types";
+
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 import { SliderComponent } from "./components/slider";
 import { HouseComponent } from "./components/house";
@@ -28,145 +40,235 @@ import { ClassNames } from "@emotion/react";
 
 const BACKEND_URL = "http://localhost:8080/hotel";
 
+// dialog card Material UI STARTS HERE
+// это
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    "& .MuiDialogContent-root": {
+        padding: theme.spacing(2),
+    },
+    "& .MuiDialogActions-root": {
+        padding: theme.spacing(1),
+    },
+}));
+// и это - компоненты
+
+// их нужно выносить за компонент, они у тебя были внутри компонента Apps
+// так делать нельзя, потому что когда происходит ре-рендер эти компоненты рендерятся заново и таким образом у тебя "вспышки" в диалоге происходили
+// реакт ререндерит когда меняется состояние - state. то есть каждый раз когда ты что то кликал и менял состояние эти два компонент Bootstrap Dialog & BootstrapDialogTitle рендерились заново
+// понял о чем я? да
+// вот return он только один может быть правильно? именно главный
+// можно хоть сто ретёрнов сделать, но смотри - сработает только самый первый
+const BootstrapDialogTitle = (props) => {
+    const { children, onClose, ...other } = props;
+
+    // вот так делать можно, делаешь conditional и если он исполняется - срабатывает этот return. если 5 > 6 === false - сработает следующий ретёрн
+    if (5 > 6) {
+        return <p>Жума лохстер</p>;
+    }
+
+    return (
+        <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+            {children}
+            {onClose ? (
+                <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    sx={{
+                        position: "absolute",
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            ) : null}
+        </DialogTitle>
+    );
+};
+
 // FUNCTION STARTS
 function App() {
+    //RETURN STARTS
+    return (
+        <>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="cards" element={<Cards />} />
+            </Routes>
+        </>
+    );
+}
+function Home() {
+    return (
+        <>
+            <div className="homePage flex flex-col items-center	justify-center">
+                <h1 className=" ">Sapar Baǵa</h1>
+                <Link to="/cards" className="go-to-cards">
+                    baǵyt tańdańyz
+                </Link>
+            </div>
+        </>
+    );
+}
+
+function Cards() {
     const [parsed, setParsed] = React.useState(0);
-
-    axios.get(`${BACKEND_URL}`).then((response) => {
-        parsed(response.data);
-    });
-    console.log(parsed);
-
     const [house, setHouse] = React.useState(0);
     const [transport, setTransport] = React.useState(0);
     const [places, setPlaces] = React.useState(0);
     const [sum, setSum] = React.useState(0);
     const [sliderDay, setSliderDay] = React.useState(0);
+    const [open, setOpen] = React.useState(false);
 
     React.useEffect(() => {
-        let sum = (parseInt(house) + parseInt(transport)) * sliderDay + places;
+        let sum =
+            parseInt(house) * sliderDay +
+            parseInt(transport) * sliderDay +
+            places;
         setSum(sum);
     }, [house, sliderDay, transport, places]);
+
+    React.useEffect(() => {
+        axios.get(`${BACKEND_URL}`).then((response) => {
+            parsed(response.data);
+        });
+        console.log(parsed);
+    }, []);
 
     const handleChangeHouse = (event, newHouse) => {
         setHouse(newHouse);
         const value = event.target.value;
     };
-
     const handleChangeTransport = (event, newTransport) => {
         setTransport(newTransport);
         const value = event.target.value;
     };
-
-    const handleChangePlaces = (event, newPlace) => {
-        setPlaces(newPlace);
-    };
-
     const handleChangeDay = (event, day) => {
         const value = event.target.value;
-        // console.log(value);
         setSliderDay(day);
     };
-
-    const handleResult = () => {
-        console.log(`${handleChangeHouse} + ${handleChangeTransport}`);
-    };
-
     const pickPlaces = (event, value) => {
         const placeValue = value
             .map((price) => price.value)
             .reduce((partialSum, a) => partialSum + a, 0);
 
-        // console.log(placeValue);
         setPlaces(placeValue);
     };
-
-    const [open, setOpen] = React.useState(false);
     const openCard = () => {
-        // console.log("Opening card");
         setOpen((prev) => !prev);
     };
-
-    const handleClickAway = () => {
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
         setOpen(false);
     };
 
-    const styles = {
-        position: "absolute",
-        top: 28,
-        right: 0,
-        left: 0,
-        zIndex: 1,
-        border: "1px solid",
-        p: 1,
-        bgcolor: "background.paper",
-    };
-
-    //RETURN STARTS
     return (
         <>
-            {/* <div>
-                <video autoPlay loop muted id="video" className="video">
-                    <source src={backgroundVideo} type="video/mp4" />
-                </video>
-            </div> */}
-            {/* <div className="body">
-                <SliderComponent handleChange={handleChangeDay} />
-                <HouseComponent
-                    handleChange={handleChangeHouse}
-                    house={house}
-                />
+            <div className="cardPage">
+                <nav>
+                    <Link to="/">Home</Link>
+                </nav>
+                <Card
+                    sx={{ maxWidth: 200 }}
+                    onClick={handleClickOpen}
+                    className="card"
+                    elevation={4}
+                    // onClickAway={handleClickAway}
+                >
+                    <CardActionArea>
+                        <CardMedia
+                            component="img"
+                            height="60"
+                            image={photoAlmaty}
+                            alt="Almaty Photo"
+                        />
+                        <CardContent
+                            sx={{
+                                backgroundColor: "#faf0d0",
+                                color: "#131927",
+                                fontFamily: "Playfair Display",
+                            }}
+                        >
+                            <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="div"
+                                sx={{ fontWeight: "bold", letterSpacing: 3 }}
+                            >
+                                Almaty
+                            </Typography>
+                            <Typography variant="body2">
+                                One of the most beautiful cities in Kazakhstan
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+                <BootstrapDialog
+                    onClose={handleClose}
+                    aria-labelledby="customized-dialog-title"
+                    open={open}
+                >
+                    <BootstrapDialogTitle
+                        id="customized-dialog-title"
+                        onClose={handleClose}
+                        sx={{
+                            backgroundColor: "#faf0d0",
+                            color: "#131927",
+                        }}
+                    >
+                        Almaty
+                    </BootstrapDialogTitle>
+                    <DialogContent
+                        dividers
+                        sx={{
+                            backgroundColor: "#faf0d0",
+                            color: "#131927",
+                        }}
+                    >
+                        <div className="card-function">
+                            <SliderComponent handleChange={handleChangeDay} />
+                            <HouseComponent
+                                handleChange={handleChangeHouse}
+                                house={house}
+                            />
 
-                <TransportComponent
-                    handleChange={handleChangeTransport}
-                    transport={transport}
-                />
+                            <TransportComponent
+                                handleChange={handleChangeTransport}
+                                transport={transport}
+                            />
 
-                <PlacesComponent
-                    placeList={placeList}
-                    pickPlaces={pickPlaces}
-                />
+                            <PlacesComponent
+                                placeList={placeList}
+                                pickPlaces={pickPlaces}
+                            />
 
-                <div className="text-center mt-12 text-3xl">{sum}₸</div>
-            </div> */}
-
-            <Card
-                sx={{ maxWidth: 200 }}
-                onClick={openCard}
-                className="card"
-                elevation={4}
-                onClickAway={handleClickAway}
-            >
-                <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        height="60"
-                        image={photoAlmaty}
-                        alt="Almaty Photo"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            Almaty
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            One of the most beautiful cities in Kazakhstan
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-
-            {/* <ClickAwayListener onClickAway={handleClickAway}> */}
-            <Box sx={{ position: "relative" }}>
-                <button type="button" onClick={openCard}>
-                    Open menu dropdown
-                </button>
-                {open ? (
-                    <Box sx={styles}>
-                        Click me, I will stay visible until you click outside.
-                    </Box>
-                ) : null}
-            </Box>
-            {/* </ClickAwayListener> */}
+                            <div className="text-center mt-12 text-3xl">
+                                {sum}₸
+                            </div>
+                        </div>
+                    </DialogContent>
+                    <DialogActions
+                        sx={{
+                            backgroundColor: "#faf0d0",
+                            color: "#131927",
+                        }}
+                    >
+                        <Button
+                            autoFocus
+                            onClick={handleClose}
+                            sx={{
+                                // backgroundColor: "#faf0d0",
+                                color: "#131927",
+                            }}
+                        >
+                            Jabý
+                        </Button>
+                    </DialogActions>
+                </BootstrapDialog>
+            </div>
         </>
     );
 }

@@ -1,11 +1,8 @@
-import express from "express";
-// import bodyParser from "body-parser";
+import express, { response } from "express";
 import axios from "axios";
 import cheer from "cheerio";
 import cors from "cors";
 import cron from "node-cron";
-// import { find } from "cheerio/lib/api/traversing";
-// import { children } from "cheerio/lib/api/traversing.js";
 import { connectToCluster } from "./db.js";
 
 const app = express();
@@ -15,10 +12,12 @@ const urlHotel =
 
 const urlTaxi = "https://www.numbeo.com/taxi-fare/in/Almaty";
 
+const urlAnytime = "https://anytime.kz/rates.html";
+
 // FETCH AND SAVE TO DB EVERY 10 MINUTES
-cron.schedule("* 10 * * * *", function () {
+cron.schedule("* */1 * * * *", function () {
     // "* */10 * * * *"
-    console.log("Cron schedule is working)))");
+    // console.log("Cron schedule is working)))");
 
     let mongoClient;
 
@@ -35,6 +34,8 @@ cron.schedule("* 10 * * * *", function () {
             // Get collection in the db named "transport"
             const transportCollection = db.collection("transport");
 
+            const anytimeCollection = db.collection("anytime");
+            //Parsing HOTEL
             await axios(urlHotel)
                 .then(async (response) => {
                     const html = response.data;
@@ -103,11 +104,11 @@ cron.schedule("* 10 * * * *", function () {
                 })
                 .catch((err) => console.log(`Error in hotel part:`, err));
 
+            //Parsing TAXI
             await axios(urlTaxi)
                 .then(async (response) => {
                     const html = response.data;
                     const $ = cheer.load(html);
-                    const arrayTaxi = [];
                     const taxi = $(".innerWidth")
                         .children(".standard_margin")
                         .first()
@@ -134,6 +135,46 @@ cron.schedule("* 10 * * * *", function () {
                     console.log("ERROR in taxi part:", err);
                 });
 
+            //Parsing Anytime
+            // await axios(urlAnytime)
+            //     .then(async (response) => {
+            //         const html = response.data;
+            //         const $ = cheer.load(html);
+            //         const anytime = $(".body_wrap")
+            //             // .children(".section:nth-child(4)")
+            //             // .first()
+            //             // .first()
+            //             // .first()
+            //             // .children("div:nth-child(15)")
+            //             // .children("div:nth-child(2)")
+            //             // .first()
+
+            //             // .children(".container")
+            //             // .children(".section__wrap")
+            //             // .children(".cards")
+            //             // .children(".rates-card")
+            //             // .children(".rates-card__items")
+            //             // .children(".item:nth-child(2)")
+            //             // .children("div:nth-child(2)")
+            //             .html();
+            //         console.log(anytime);
+            //         // const reg = /\d+/g;
+            //         // let resultAnytime = anytime.match(reg);
+            //         // const anytimeCount = parseInt(resultAnytime);
+            //         // //         // console.log(anytimeCount);
+
+            //         // await anytimeCollection.replaceOne(
+            //         //     {},
+            //         //     { count: anytimeCount },
+            //         //     { upsert: true }
+            //         // );
+            //     })
+            //     .catch((err) => {
+            //         console.log("ERROR in anytime part:", err);
+            //     });
+
+            // PLACES TRIPADVISERY
+
             mongoClient.close();
         })
         .catch(() => {
@@ -145,7 +186,6 @@ cron.schedule("* 10 * * * *", function () {
 app.use(cors());
 
 app.get("/hotel", (req, res) => {
-    // res.send({ message: "We did it!" });
     let mongoClient;
 
     // Get access to mongo db cluster
@@ -190,5 +230,28 @@ app.get("/transport", (req, res) => {
         })
         .finally(() => mongoClient.close());
 });
+
+// app.get("/anytime", (req, res) => {
+//     let mongoClient;
+
+//     // Get access to mongo db cluster
+//     connectToCluster()
+//         .then(async (client) => {
+//             mongoClient = client;
+
+//             // Connect to DB named "travel-expense"
+//             const db = client.db("travel-expense");
+
+//             // Get collection in the db named "transport"
+//             const anytimeCollection = db.collection("anytime");
+
+//             // Find first item in that collection
+//             const anytime = await anytimeCollection.findOne();
+
+//             // Return it's count (count is where we saved the number of transports)
+//             res.status(200).json(anytime.count);
+//         })
+//         .finally(() => mongoClient.close());
+// });
 
 app.listen(port, () => console.log(`Server is working on PORT ${port}`));

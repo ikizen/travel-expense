@@ -5,8 +5,7 @@ export const PlacesComponent = ({ placeList, pickPlaces }) => {
     return (
         <>
             <div className="flex flex-row justify-between mt-6">
-                <h2>Планирую посетить..</h2>
-                <h2>Planning to visit..</h2>
+                <h2>Barý josparlarym</h2>
             </div>
             <div className="mt-12 flex justify-center">
                 <Autocomplete
@@ -23,8 +22,8 @@ export const PlacesComponent = ({ placeList, pickPlaces }) => {
                             <TextField
                                 {...params}
                                 color="secondary"
-                                label="Места"
-                                placeholder="Выбирай"
+                                label="Saıahat oryndary"
+                                placeholder="Tańda"
                             />
                         );
                     }}

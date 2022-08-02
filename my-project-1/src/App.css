@@ -1,10 +1,48 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Playfair+Display&display=swap");
 
-h1 {
+/* h1 {
     font-family: "Nunito", sans-serif;
     color: black;
     font-size: 14px;
+} */
+
+.homePage {
+    font-family: "Playfair Display", serif;
+    font-size: 3.5rem;
+    background-image: url(./img/title.svg);
+    background-repeat: no-repeat center center;
+    background-position: bottom;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
 }
+.go-to-cards {
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+}
+
+.cardPage {
+    background-color: #f8c7ad;
+    /* background-image: url(./img/title.svg); */
+    /* #f8c7ad orange
+       #faf0d0 svetlyy
+       #494c57 temnyy 
+       #b1ddc6 zelenyy
+       #131927 text
+    */
+    background-repeat: no-repeat center center;
+    background-position: left bottom;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+}
+
 #video {
     object-fit: cover;
     width: 100vw;
@@ -14,13 +52,10 @@ h1 {
     left: 0;
     z-index: -1;
 }
-.body {
-    top: 40px;
-    margin-top: 14rem;
-    background-color: #e7e6cd;
-    font-family: "Nunito", sans-serif;
-    z-index: 2;
-    background-color: #fff;
+.card-function {
+    background-color: #faf0d0;
+    color: #131927;
+    /* font-family: "Nunito", sans-serif; */
 }
 .card {
     margin: 2rem;

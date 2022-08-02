@@ -18,8 +18,7 @@ export const HouseComponent = ({ handleChange, house }) => {
     return (
         <>
             <div className="flex flex-row justify-between mt-6">
-                <h2>Буду жить в..</h2>
-                <h2>Will live in..</h2>
+                <h2>Turatyn jerim</h2>
             </div>
             <Box
                 className="mt-6"
@@ -38,8 +37,8 @@ export const HouseComponent = ({ handleChange, house }) => {
                     exclusive
                     onChange={handleChange}
                 >
-                    <ToggleButton value="0">У друзей</ToggleButton>
-                    <ToggleButton value={parsedHotel}>Отель</ToggleButton>
+                    <ToggleButton value="0">Dostarymda</ToggleButton>
+                    <ToggleButton value={parsedHotel}>Qonaq úıde</ToggleButton>
                 </ToggleButtonGroup>
             </Box>
         </>
