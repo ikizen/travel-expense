@@ -11,6 +11,11 @@ export const PlacesComponent = ({ placeList, pickPlaces }) => {
                 <Autocomplete
                     //className="mt-10 flex place-content-center	"
                     multiple
+                    sx={{
+                        borderColor: "#494c57",
+                        backgroundColor: "#494c57",
+                        color: "#494c57",
+                    }}
                     limitTags={2}
                     id="multiple-limit-tags"
                     options={placeList}
@@ -21,13 +26,46 @@ export const PlacesComponent = ({ placeList, pickPlaces }) => {
                         return (
                             <TextField
                                 {...params}
-                                color="secondary"
                                 label="Saıahat oryndary"
                                 placeholder="Tańda"
+                                // color="#494c57"
+                                sx={{
+                                    notchedOutline: {
+                                        borderWidth: "1px",
+                                        borderColor: "yellow !important",
+                                    },
+                                    "& .MuiFilledInput-input": {
+                                        border: "1px solid orange",
+                                        borderRadius: 1,
+                                    },
+
+                                    "& .MuiInputLabel-root": {
+                                        color: "#494c57",
+                                        borderColor: "#494c57",
+                                    },
+
+                                    // root: {
+                                    //     color: "#494c57",
+                                    //     height: 3,
+                                    //     padding: "13px 0",
+                                    //     borderColor: "#494c57",
+                                    // },
+                                    thumb: {
+                                        color: "yellow",
+                                        borderBlockColor: "#494c57",
+                                        borderColor: "#494c57",
+                                    },
+                                    input: {
+                                        color: "494c57",
+                                        borderColor: "#494c57",
+                                    },
+                                    color: "#494c57",
+                                    borderColor: "#494c57",
+                                }}
                             />
                         );
                     }}
-                    sx={{ width: "300px" }}
+                    sx={{ width: "300px", borderColor: "#494c57" }}
                 />
             </div>
         </>

@@ -29,16 +29,21 @@ export const HouseComponent = ({ handleChange, house }) => {
                     "& > *": {
                         m: 1,
                     },
+                    color: "#b1ddc6",
                 }}
             >
                 <ToggleButtonGroup
-                    color="secondary"
                     value={house}
                     exclusive
                     onChange={handleChange}
+                    sx={{ color: "#494c57" }}
                 >
-                    <ToggleButton value="0">Dostarymda</ToggleButton>
-                    <ToggleButton value={parsedHotel}>Qonaq úıde</ToggleButton>
+                    <ToggleButton value="0" sx={{ color: "#494c57" }}>
+                        Dostarymda
+                    </ToggleButton>
+                    <ToggleButton value={parsedHotel} sx={{ color: "#494c57" }}>
+                        Qonaq úıde
+                    </ToggleButton>
                 </ToggleButtonGroup>
             </Box>
         </>

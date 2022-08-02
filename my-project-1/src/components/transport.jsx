@@ -27,7 +27,7 @@ export const TransportComponent = ({ handleChange, transport }) => {
 
     return (
         <>
-            <div className="flex flex-row justify-between mt-6">
+            <div className="flex flex-row justify-end mt-6">
                 <h2>Tasmaldaýym</h2>
             </div>
             <Box
@@ -42,15 +42,22 @@ export const TransportComponent = ({ handleChange, transport }) => {
                 }}
             >
                 <ToggleButtonGroup
-                    color="secondary"
                     value={transport}
                     exclusive
                     onChange={handleChange}
                 >
-                    <ToggleButton value="800">Avtobýs</ToggleButton>
-                    <ToggleButton value={parsedTaxi}>Taksı</ToggleButton>
-                    <ToggleButton value="3000">Avtobýs + Taksı</ToggleButton>
-                    <ToggleButton value="10500">Anytime</ToggleButton>
+                    <ToggleButton value="800" sx={{ color: "#494c57" }}>
+                        Avtobýs
+                    </ToggleButton>
+                    <ToggleButton value={parsedTaxi} sx={{ color: "#494c57" }}>
+                        Taksı
+                    </ToggleButton>
+                    <ToggleButton value="3000" sx={{ color: "#494c57" }}>
+                        Avtobýs + Taksı
+                    </ToggleButton>
+                    <ToggleButton value="10500" sx={{ color: "#494c57" }}>
+                        Anytime
+                    </ToggleButton>
                     {/* 10.500 тенге в день  */}
                     {/* <ToggleButton value="5000">Аренда машины</ToggleButton> */}
                 </ToggleButtonGroup>

@@ -32,8 +32,11 @@ import { CardActionArea } from "@mui/material";
 
 import Box from "@mui/material/Box";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import backgroundVideo from "./video/videoplayback.mp4";
 import photoAlmaty from "./img/almaty2.jpg";
+import photoAstana from "./img/astana.jpg";
+import photoQaragandy from "./img/karaganda1.jpg";
+import photoShymkent from "./img/shym.jpg";
+import photoAqtau from "./img/aqtau.jpg";
 
 import axios from "axios";
 import { ClassNames } from "@emotion/react";
@@ -103,9 +106,22 @@ function Home() {
     return (
         <>
             <div className="homePage flex flex-col items-center	justify-center">
-                <h1 className=" ">Sapar Baǵa</h1>
-                <Link to="/cards" className="go-to-cards">
-                    baǵyt tańdańyz
+                <h1 className=" ">Saparǵa</h1>
+                <Link to="/cards" className="go-to-cards flex flex-row">
+                    <div className="pr-1">bagyt</div>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h3 w-3"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                    >
+                        <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z"
+                            clipRule="evenodd"
+                        />
+                    </svg>
+                    <div className="pl-1">tańdańyz</div>
                 </Link>
             </div>
         </>
@@ -168,106 +184,587 @@ function Cards() {
     return (
         <>
             <div className="cardPage">
-                <nav>
-                    <Link to="/">Home</Link>
-                </nav>
-                <Card
-                    sx={{ maxWidth: 200 }}
-                    onClick={handleClickOpen}
-                    className="card"
-                    elevation={4}
-                    // onClickAway={handleClickAway}
-                >
-                    <CardActionArea>
-                        <CardMedia
-                            component="img"
-                            height="60"
-                            image={photoAlmaty}
-                            alt="Almaty Photo"
-                        />
-                        <CardContent
-                            sx={{
-                                backgroundColor: "#faf0d0",
-                                color: "#131927",
-                                fontFamily: "Playfair Display",
-                            }}
+                <nav className="card-page-nav flex-1 flex justify-center pt-2 pb-2">
+                    <Link className="flex flex-row" to="/">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
                         >
-                            <Typography
-                                gutterBottom
-                                variant="h5"
-                                component="div"
-                                sx={{ fontWeight: "bold", letterSpacing: 3 }}
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                        </svg>
+                        <div className="pl-2">Artqa</div>
+                    </Link>
+                </nav>
+                <div className="flex flex-row justify-center flex-wrap">
+                    <div className="qaragandy-card">
+                        <Card
+                            sx={{ maxWidth: 200 }}
+                            onClick={handleClickOpen}
+                            className="card"
+                            elevation={6}
+                            // onClickAway={handleClickAway}
+                        >
+                            <CardActionArea>
+                                <CardMedia
+                                    component="img"
+                                    height="60"
+                                    image={photoQaragandy}
+                                    alt="Qaragandy Photo"
+                                />
+                                <CardContent
+                                    className="card-content"
+                                    sx={{
+                                        backgroundColor: "#faf0d0",
+                                        color: "#494c57",
+                                        fontFamily: "Playfair Display",
+                                    }}
+                                >
+                                    <Typography
+                                        gutterBottom
+                                        variant="h5"
+                                        component="div"
+                                        sx={{
+                                            fontWeight: "bold",
+                                            letterSpacing: 3,
+                                            color: "#494c57",
+                                        }}
+                                    >
+                                        Qaraǵandy
+                                    </Typography>
+                                    <Typography
+                                        className="card-content-text"
+                                        variant="body2"
+                                        sx={{
+                                            fontFamily: "Monospace",
+                                        }}
+                                    >
+                                        Eń uly tulǵalardyn dúnıege kelgen jeri
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                        <BootstrapDialog
+                            onClose={handleClose}
+                            aria-labelledby="customized-dialog-title"
+                            open={open}
+                        >
+                            <BootstrapDialogTitle
+                                id="customized-dialog-title"
+                                className="card-opened"
+                                onClose={handleClose}
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
                             >
                                 Almaty
-                            </Typography>
-                            <Typography variant="body2">
-                                One of the most beautiful cities in Kazakhstan
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-                <BootstrapDialog
-                    onClose={handleClose}
-                    aria-labelledby="customized-dialog-title"
-                    open={open}
-                >
-                    <BootstrapDialogTitle
-                        id="customized-dialog-title"
-                        onClose={handleClose}
-                        sx={{
-                            backgroundColor: "#faf0d0",
-                            color: "#131927",
-                        }}
-                    >
-                        Almaty
-                    </BootstrapDialogTitle>
-                    <DialogContent
-                        dividers
-                        sx={{
-                            backgroundColor: "#faf0d0",
-                            color: "#131927",
-                        }}
-                    >
-                        <div className="card-function">
-                            <SliderComponent handleChange={handleChangeDay} />
-                            <HouseComponent
-                                handleChange={handleChangeHouse}
-                                house={house}
-                            />
+                            </BootstrapDialogTitle>
+                            <DialogContent
+                                dividers
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                <div className="card-function">
+                                    <SliderComponent
+                                        handleChange={handleChangeDay}
+                                    />
+                                    <HouseComponent
+                                        handleChange={handleChangeHouse}
+                                        house={house}
+                                    />
 
-                            <TransportComponent
-                                handleChange={handleChangeTransport}
-                                transport={transport}
-                            />
+                                    <TransportComponent
+                                        handleChange={handleChangeTransport}
+                                        transport={transport}
+                                    />
 
-                            <PlacesComponent
-                                placeList={placeList}
-                                pickPlaces={pickPlaces}
-                            />
+                                    <PlacesComponent
+                                        placeList={placeList}
+                                        pickPlaces={pickPlaces}
+                                    />
 
-                            <div className="text-center mt-12 text-3xl">
-                                {sum}₸
-                            </div>
-                        </div>
-                    </DialogContent>
-                    <DialogActions
-                        sx={{
-                            backgroundColor: "#faf0d0",
-                            color: "#131927",
-                        }}
-                    >
-                        <Button
-                            autoFocus
-                            onClick={handleClose}
-                            sx={{
-                                // backgroundColor: "#faf0d0",
-                                color: "#131927",
-                            }}
+                                    <div className="text-center mt-12 text-3xl">
+                                        {sum}₸
+                                    </div>
+                                </div>
+                            </DialogContent>
+                            <DialogActions
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                <Button
+                                    autoFocus
+                                    onClick={handleClose}
+                                    sx={{
+                                        backgroundColor: "#faf0d0",
+                                        color: "#494c57",
+                                    }}
+                                >
+                                    Jabý
+                                </Button>
+                            </DialogActions>
+                        </BootstrapDialog>
+                    </div>
+                    <div className="almaty-card">
+                        <Card
+                            sx={{ maxWidth: 200 }}
+                            onClick={handleClickOpen}
+                            className="card"
+                            elevation={6}
+                            // onClickAway={handleClickAway}
                         >
-                            Jabý
-                        </Button>
-                    </DialogActions>
-                </BootstrapDialog>
+                            <CardActionArea>
+                                <CardMedia
+                                    component="img"
+                                    height="60"
+                                    image={photoAlmaty}
+                                    alt="Almaty Photo"
+                                />
+                                <CardContent
+                                    className="card-content"
+                                    sx={{
+                                        backgroundColor: "#faf0d0",
+                                        color: "#494c57",
+                                        fontFamily: "Playfair Display",
+                                    }}
+                                >
+                                    <Typography
+                                        gutterBottom
+                                        variant="h5"
+                                        component="div"
+                                        sx={{
+                                            fontWeight: "bold",
+                                            letterSpacing: 3,
+                                            color: "#494c57",
+                                        }}
+                                    >
+                                        Almaty
+                                    </Typography>
+                                    <Typography
+                                        className="card-content-text"
+                                        variant="body2"
+                                        sx={{
+                                            fontFamily: "Monospace",
+                                        }}
+                                    >
+                                        Myń boıauly, korkem ári almaly qala
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                        <BootstrapDialog
+                            onClose={handleClose}
+                            aria-labelledby="customized-dialog-title"
+                            open={open}
+                        >
+                            <BootstrapDialogTitle
+                                id="customized-dialog-title"
+                                className="card-opened"
+                                onClose={handleClose}
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                Almaty
+                            </BootstrapDialogTitle>
+                            <DialogContent
+                                dividers
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                <div className="card-function">
+                                    <SliderComponent
+                                        handleChange={handleChangeDay}
+                                    />
+                                    <HouseComponent
+                                        handleChange={handleChangeHouse}
+                                        house={house}
+                                    />
+
+                                    <TransportComponent
+                                        handleChange={handleChangeTransport}
+                                        transport={transport}
+                                    />
+
+                                    <PlacesComponent
+                                        placeList={placeList}
+                                        pickPlaces={pickPlaces}
+                                    />
+
+                                    <div className="text-center mt-12 text-3xl">
+                                        {sum}₸
+                                    </div>
+                                </div>
+                            </DialogContent>
+                            <DialogActions
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                <Button
+                                    autoFocus
+                                    onClick={handleClose}
+                                    sx={{
+                                        backgroundColor: "#faf0d0",
+                                        color: "#494c57",
+                                    }}
+                                >
+                                    Jabý
+                                </Button>
+                            </DialogActions>
+                        </BootstrapDialog>
+                    </div>
+                    <div className="astana-card">
+                        <Card
+                            sx={{ maxWidth: 200 }}
+                            onClick={handleClickOpen}
+                            className="card"
+                            elevation={6}
+                            // onClickAway={handleClickAway}
+                        >
+                            <CardActionArea>
+                                <CardMedia
+                                    component="img"
+                                    height="60"
+                                    image={photoAstana}
+                                    alt="Almaty Photo"
+                                />
+                                <CardContent
+                                    className="card-content"
+                                    sx={{
+                                        backgroundColor: "#faf0d0",
+                                        color: "#494c57",
+                                        fontFamily: "Playfair Display",
+                                    }}
+                                >
+                                    <Typography
+                                        gutterBottom
+                                        variant="h5"
+                                        component="div"
+                                        sx={{
+                                            fontWeight: "bold",
+                                            letterSpacing: 3,
+                                            color: "#494c57",
+                                        }}
+                                    >
+                                        Astana
+                                    </Typography>
+                                    <Typography
+                                        className="card-content-text"
+                                        variant="body2"
+                                        sx={{
+                                            fontFamily: "Monospace",
+                                        }}
+                                    >
+                                        Qazaqstan Respýblıkasynyń astanasy
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                        <BootstrapDialog
+                            onClose={handleClose}
+                            aria-labelledby="customized-dialog-title"
+                            open={open}
+                        >
+                            <BootstrapDialogTitle
+                                id="customized-dialog-title"
+                                className="card-opened"
+                                onClose={handleClose}
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                Almaty
+                            </BootstrapDialogTitle>
+                            <DialogContent
+                                dividers
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                <div className="card-function">
+                                    <SliderComponent
+                                        handleChange={handleChangeDay}
+                                    />
+                                    <HouseComponent
+                                        handleChange={handleChangeHouse}
+                                        house={house}
+                                    />
+
+                                    <TransportComponent
+                                        handleChange={handleChangeTransport}
+                                        transport={transport}
+                                    />
+
+                                    <PlacesComponent
+                                        placeList={placeList}
+                                        pickPlaces={pickPlaces}
+                                    />
+
+                                    <div className="text-center mt-12 text-3xl">
+                                        {sum}₸
+                                    </div>
+                                </div>
+                            </DialogContent>
+                            <DialogActions
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                <Button
+                                    autoFocus
+                                    onClick={handleClose}
+                                    sx={{
+                                        backgroundColor: "#faf0d0",
+                                        color: "#494c57",
+                                    }}
+                                >
+                                    Jabý
+                                </Button>
+                            </DialogActions>
+                        </BootstrapDialog>
+                    </div>
+                    <div className="shymkent-card">
+                        <Card
+                            sx={{ maxWidth: 200 }}
+                            onClick={handleClickOpen}
+                            className="card"
+                            elevation={6}
+                            // onClickAway={handleClickAway}
+                        >
+                            <CardActionArea>
+                                <CardMedia
+                                    component="img"
+                                    height="60"
+                                    image={photoShymkent}
+                                    alt="Almaty Photo"
+                                />
+                                <CardContent
+                                    className="card-content"
+                                    sx={{
+                                        backgroundColor: "#faf0d0",
+                                        color: "#494c57",
+                                        fontFamily: "Playfair Display",
+                                    }}
+                                >
+                                    <Typography
+                                        gutterBottom
+                                        variant="h5"
+                                        component="div"
+                                        sx={{
+                                            fontWeight: "bold",
+                                            letterSpacing: 3,
+                                            color: "#494c57",
+                                        }}
+                                    >
+                                        Shymkent
+                                    </Typography>
+                                    <Typography
+                                        className="card-content-text"
+                                        variant="body2"
+                                        sx={{
+                                            fontFamily: "Monospace",
+                                        }}
+                                    >
+                                        Qazaq halqynyń dastýrlerin saqtap jurgen
+                                        qala
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                        <BootstrapDialog
+                            onClose={handleClose}
+                            aria-labelledby="customized-dialog-title"
+                            open={open}
+                        >
+                            <BootstrapDialogTitle
+                                id="customized-dialog-title"
+                                className="card-opened"
+                                onClose={handleClose}
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                Almaty
+                            </BootstrapDialogTitle>
+                            <DialogContent
+                                dividers
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                <div className="card-function">
+                                    <SliderComponent
+                                        handleChange={handleChangeDay}
+                                    />
+                                    <HouseComponent
+                                        handleChange={handleChangeHouse}
+                                        house={house}
+                                    />
+
+                                    <TransportComponent
+                                        handleChange={handleChangeTransport}
+                                        transport={transport}
+                                    />
+
+                                    <PlacesComponent
+                                        placeList={placeList}
+                                        pickPlaces={pickPlaces}
+                                    />
+
+                                    <div className="text-center mt-12 text-3xl">
+                                        {sum}₸
+                                    </div>
+                                </div>
+                            </DialogContent>
+                            <DialogActions
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                <Button
+                                    autoFocus
+                                    onClick={handleClose}
+                                    sx={{
+                                        backgroundColor: "#faf0d0",
+                                        color: "#494c57",
+                                    }}
+                                >
+                                    Jabý
+                                </Button>
+                            </DialogActions>
+                        </BootstrapDialog>
+                    </div>
+                    <div className="aqtau-card">
+                        <Card
+                            sx={{ maxWidth: 200 }}
+                            onClick={handleClickOpen}
+                            className="card"
+                            elevation={6}
+                            // onClickAway={handleClickAway}
+                        >
+                            <CardActionArea>
+                                <CardMedia
+                                    component="img"
+                                    height="60"
+                                    image={photoAqtau}
+                                    alt="Almaty Photo"
+                                />
+                                <CardContent
+                                    className="card-content"
+                                    sx={{
+                                        backgroundColor: "#faf0d0",
+                                        color: "#494c57",
+                                        fontFamily: "Playfair Display",
+                                    }}
+                                >
+                                    <Typography
+                                        gutterBottom
+                                        variant="h5"
+                                        component="div"
+                                        sx={{
+                                            fontWeight: "bold",
+                                            letterSpacing: 3,
+                                            color: "#494c57",
+                                        }}
+                                    >
+                                        Aqtau
+                                    </Typography>
+                                    <Typography
+                                        className="card-content-text"
+                                        variant="body2"
+                                        sx={{
+                                            fontFamily: "Monospace",
+                                        }}
+                                    >
+                                        Baıtaq teńizge tıip turǵan qala
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                        <BootstrapDialog
+                            onClose={handleClose}
+                            aria-labelledby="customized-dialog-title"
+                            open={open}
+                        >
+                            <BootstrapDialogTitle
+                                id="customized-dialog-title"
+                                className="card-opened"
+                                onClose={handleClose}
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                Almaty
+                            </BootstrapDialogTitle>
+                            <DialogContent
+                                dividers
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                <div className="card-function">
+                                    <SliderComponent
+                                        handleChange={handleChangeDay}
+                                    />
+                                    <HouseComponent
+                                        handleChange={handleChangeHouse}
+                                        house={house}
+                                    />
+
+                                    <TransportComponent
+                                        handleChange={handleChangeTransport}
+                                        transport={transport}
+                                    />
+
+                                    <PlacesComponent
+                                        placeList={placeList}
+                                        pickPlaces={pickPlaces}
+                                    />
+
+                                    <div className="text-center mt-12 text-3xl">
+                                        {sum}₸
+                                    </div>
+                                </div>
+                            </DialogContent>
+                            <DialogActions
+                                sx={{
+                                    backgroundColor: "#faf0d0",
+                                    color: "#494c57",
+                                }}
+                            >
+                                <Button
+                                    autoFocus
+                                    onClick={handleClose}
+                                    sx={{
+                                        backgroundColor: "#faf0d0",
+                                        color: "#494c57",
+                                    }}
+                                >
+                                    Jabý
+                                </Button>
+                            </DialogActions>
+                        </BootstrapDialog>
+                    </div>
+                </div>
             </div>
         </>
     );

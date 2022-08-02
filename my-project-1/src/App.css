@@ -1,11 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Playfair+Display&display=swap");
-
-/* h1 {
-    font-family: "Nunito", sans-serif;
-    color: black;
-    font-size: 14px;
-} */
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Montserrat+Alternates&family=Montserrat:wght@200&family=Playfair+Display&display=swap");
 
 .homePage {
     font-family: "Playfair Display", serif;
@@ -35,27 +29,43 @@
        #b1ddc6 zelenyy
        #131927 text
     */
-    background-repeat: no-repeat center center;
-    background-position: left bottom;
     background-size: cover;
-    height: 100vh;
+    height: 100%;
     width: 100vw;
     margin: 0;
 }
 
-#video {
-    object-fit: cover;
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
-.card-function {
+.card-page-nav {
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    letter-spacing: 0.15em;
     background-color: #faf0d0;
-    color: #131927;
-    /* font-family: "Nunito", sans-serif; */
+}
+
+.card-content {
+    font-family: "Playfair Display", serif;
+}
+.card-content-text {
+    font-weight: 330 !important;
+}
+
+/* .card-opened {
+
+} */
+
+.card-header {
+    font-family: "Montserrat", sans-serif !important;
+    font-size: 2rem;
+}
+
+.card-function {
+    font-family: "Lato", sans-serif;
+    background-color: #faf0d0;
+    color: #494c57;
+    margin: 0 1.5rem;
+}
+.card-function h1 {
+    padding: 0 1rem;
 }
 .card {
     margin: 2rem;
