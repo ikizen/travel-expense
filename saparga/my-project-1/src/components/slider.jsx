@@ -9,16 +9,16 @@ export const SliderComponent = ({ handleChange }) => {
 
     return (
         <>
-            <h1 className="card-header text-3xl font-bold text-center">
-                Tıisti nusqalardy tańdańyz
-            </h1>
-            <div className="flex flex-row justify-center mt-6"></div>
-            <div className="flex flex-row justify-end mt-6">
-                <h2>Almatyda qansha kún bolasyz?</h2>
+            <div className="flex flex-row justify-center mt-6">
+                <h2>Qalada qansha kún bolasyz?</h2>
             </div>
             <div className="flex justify-center mt-6">
                 <Box sx={{ width: 300 }}>
-                    <Typography id="slider" gutterBottom>
+                    <Typography
+                        id="slider"
+                        className="flex justify-center"
+                        gutterBottom
+                    >
                         Kúnder
                     </Typography>
                     <Slider

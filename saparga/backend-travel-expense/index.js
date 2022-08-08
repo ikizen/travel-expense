@@ -185,6 +185,10 @@ cron.schedule("* */1 * * * *", function () {
 
 app.use(cors());
 
+app.get("/", (res, req) => {
+    console.log("lohgfhfgh");
+});
+
 app.get("/hotel", (req, res) => {
     let mongoClient;
 

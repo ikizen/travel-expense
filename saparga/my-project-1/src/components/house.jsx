@@ -3,8 +3,11 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
 import axios from "axios";
 import React from "react";
+import { REACT_APP_BACKEND_URL } from "../constants/constants";
 
-const BACKEND_URL = "http://localhost:8080/hotel";
+const BACKEND_URL = `${process.env.REACT_APP_BACKEND_URL}/hotel`;
+
+// const BACKEND_URL = "https://saparga-back.vercel.app/hotel";
 export const HouseComponent = ({ handleChange, house }) => {
     // const parsedHotel = 0;
     const [parsedHotel, setParsedHotel] = React.useState(0);
@@ -17,7 +20,7 @@ export const HouseComponent = ({ handleChange, house }) => {
     // console.log(parsed);
     return (
         <>
-            <div className="flex flex-row justify-between mt-6">
+            <div className="flex flex-row justify-center mt-6">
                 <h2>Turatyn jerim</h2>
             </div>
             <Box

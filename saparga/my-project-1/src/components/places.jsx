@@ -1,10 +1,11 @@
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import { REACT_APP_BACKEND_URL } from "../constants/constants";
 
 export const PlacesComponent = ({ placeList, pickPlaces }) => {
     return (
         <>
-            <div className="flex flex-row justify-between mt-6">
+            <div className="flex flex-row justify-center mt-6">
                 <h2>Barý josparlarym</h2>
             </div>
             <div className="mt-12 flex justify-center">

@@ -41,7 +41,8 @@ import photoAqtau from "./img/aqtau.jpg";
 import axios from "axios";
 import { ClassNames } from "@emotion/react";
 
-const BACKEND_URL = "http://localhost:8080/hotel";
+// const BACKEND_URL = "http://localhost:8080/hotel";
+const BACKEND_URL = "https://saparga-back.vercel.app/hotel";
 
 // dialog card Material UI STARTS HERE
 // это
@@ -55,19 +56,13 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 // и это - компоненты
 
-// их нужно выносить за компонент, они у тебя были внутри компонента Apps
-// так делать нельзя, потому что когда происходит ре-рендер эти компоненты рендерятся заново и таким образом у тебя "вспышки" в диалоге происходили
-// реакт ререндерит когда меняется состояние - state. то есть каждый раз когда ты что то кликал и менял состояние эти два компонент Bootstrap Dialog & BootstrapDialogTitle рендерились заново
-// понял о чем я? да
-// вот return он только один может быть правильно? именно главный
-// можно хоть сто ретёрнов сделать, но смотри - сработает только самый первый
 const BootstrapDialogTitle = (props) => {
     const { children, onClose, ...other } = props;
 
     // вот так делать можно, делаешь conditional и если он исполняется - срабатывает этот return. если 5 > 6 === false - сработает следующий ретёрн
-    if (5 > 6) {
-        return <p>Жума лохстер</p>;
-    }
+    // if (5 > 6) {
+    //     return <p>Жума лохстер</p>;
+    // }
 
     return (
         <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
@@ -108,19 +103,8 @@ function Home() {
             <div className="homePage flex flex-col items-center	justify-center">
                 <h1 className=" ">Saparǵa</h1>
                 <Link to="/cards" className="go-to-cards flex flex-row">
-                    <div className="pr-1">bagyt</div>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h3 w-3"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                    >
-                        <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z"
-                            clipRule="evenodd"
-                        />
-                    </svg>
+                    <div className="pr-1 sm:text-xs">baǵyt</div>
+
                     <div className="pl-1">tańdańyz</div>
                 </Link>
             </div>
@@ -186,19 +170,11 @@ function Cards() {
             <div className="cardPage">
                 <nav className="card-page-nav flex-1 flex justify-center pt-2 pb-2">
                     <Link className="flex flex-row" to="/">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
-                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                        </svg>
-                        <div className="pl-2">Artqa</div>
+                        <div className="pl-2">Saparǵa</div>
                     </Link>
                 </nav>
                 <div className="flex flex-row justify-center flex-wrap">
-                    <div className="qaragandy-card">
+                    <div className="almaty-card">
                         <Card
                             sx={{ maxWidth: 200 }}
                             onClick={handleClickOpen}
@@ -210,8 +186,8 @@ function Cards() {
                                 <CardMedia
                                     component="img"
                                     height="60"
-                                    image={photoQaragandy}
-                                    alt="Qaragandy Photo"
+                                    image={photoAlmaty}
+                                    alt="Almaty Photo"
                                 />
                                 <CardContent
                                     className="card-content"
@@ -231,7 +207,7 @@ function Cards() {
                                             color: "#494c57",
                                         }}
                                     >
-                                        Qaraǵandy
+                                        Almaty
                                     </Typography>
                                     <Typography
                                         className="card-content-text"
@@ -240,7 +216,7 @@ function Cards() {
                                             fontFamily: "Monospace",
                                         }}
                                     >
-                                        Eń uly tulǵalardyn dúnıege kelgen jeri
+                                        Myń boıauly, korkem ári almaly qala
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -252,14 +228,14 @@ function Cards() {
                         >
                             <BootstrapDialogTitle
                                 id="customized-dialog-title"
-                                className="card-opened"
+                                className="card-opened flex justify-center"
                                 onClose={handleClose}
                                 sx={{
                                     backgroundColor: "#faf0d0",
                                     color: "#494c57",
                                 }}
                             >
-                                Almaty
+                                Tıisti nusqalardy tańdańyz
                             </BootstrapDialogTitle>
                             <DialogContent
                                 dividers
@@ -365,14 +341,14 @@ function Cards() {
                         >
                             <BootstrapDialogTitle
                                 id="customized-dialog-title"
-                                className="card-opened"
+                                className="card-opened flex justify-center"
                                 onClose={handleClose}
                                 sx={{
                                     backgroundColor: "#faf0d0",
                                     color: "#494c57",
                                 }}
                             >
-                                Almaty
+                                Tıisti nusqalardy tańdańyz
                             </BootstrapDialogTitle>
                             <DialogContent
                                 dividers
@@ -424,7 +400,7 @@ function Cards() {
                             </DialogActions>
                         </BootstrapDialog>
                     </div>
-                    <div className="astana-card">
+                    <div className="almaty-card">
                         <Card
                             sx={{ maxWidth: 200 }}
                             onClick={handleClickOpen}
@@ -436,7 +412,7 @@ function Cards() {
                                 <CardMedia
                                     component="img"
                                     height="60"
-                                    image={photoAstana}
+                                    image={photoAlmaty}
                                     alt="Almaty Photo"
                                 />
                                 <CardContent
@@ -457,7 +433,7 @@ function Cards() {
                                             color: "#494c57",
                                         }}
                                     >
-                                        Astana
+                                        Almaty
                                     </Typography>
                                     <Typography
                                         className="card-content-text"
@@ -466,7 +442,7 @@ function Cards() {
                                             fontFamily: "Monospace",
                                         }}
                                     >
-                                        Qazaqstan Respýblıkasynyń astanasy
+                                        Myń boıauly, korkem ári almaly qala
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -478,14 +454,14 @@ function Cards() {
                         >
                             <BootstrapDialogTitle
                                 id="customized-dialog-title"
-                                className="card-opened"
+                                className="card-opened flex justify-center"
                                 onClose={handleClose}
                                 sx={{
                                     backgroundColor: "#faf0d0",
                                     color: "#494c57",
                                 }}
                             >
-                                Almaty
+                                Tıisti nusqalardy tańdańyz
                             </BootstrapDialogTitle>
                             <DialogContent
                                 dividers
@@ -537,7 +513,7 @@ function Cards() {
                             </DialogActions>
                         </BootstrapDialog>
                     </div>
-                    <div className="shymkent-card">
+                    <div className="almaty-card">
                         <Card
                             sx={{ maxWidth: 200 }}
                             onClick={handleClickOpen}
@@ -549,7 +525,7 @@ function Cards() {
                                 <CardMedia
                                     component="img"
                                     height="60"
-                                    image={photoShymkent}
+                                    image={photoAlmaty}
                                     alt="Almaty Photo"
                                 />
                                 <CardContent
@@ -570,7 +546,7 @@ function Cards() {
                                             color: "#494c57",
                                         }}
                                     >
-                                        Shymkent
+                                        Almaty
                                     </Typography>
                                     <Typography
                                         className="card-content-text"
@@ -579,8 +555,7 @@ function Cards() {
                                             fontFamily: "Monospace",
                                         }}
                                     >
-                                        Qazaq halqynyń dastýrlerin saqtap jurgen
-                                        qala
+                                        Myń boıauly, korkem ári almaly qala
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -592,14 +567,14 @@ function Cards() {
                         >
                             <BootstrapDialogTitle
                                 id="customized-dialog-title"
-                                className="card-opened"
+                                className="card-opened flex justify-center"
                                 onClose={handleClose}
                                 sx={{
                                     backgroundColor: "#faf0d0",
                                     color: "#494c57",
                                 }}
                             >
-                                Almaty
+                                Tıisti nusqalardy tańdańyz
                             </BootstrapDialogTitle>
                             <DialogContent
                                 dividers
@@ -651,7 +626,7 @@ function Cards() {
                             </DialogActions>
                         </BootstrapDialog>
                     </div>
-                    <div className="aqtau-card">
+                    <div className="almaty-card">
                         <Card
                             sx={{ maxWidth: 200 }}
                             onClick={handleClickOpen}
@@ -663,7 +638,7 @@ function Cards() {
                                 <CardMedia
                                     component="img"
                                     height="60"
-                                    image={photoAqtau}
+                                    image={photoAlmaty}
                                     alt="Almaty Photo"
                                 />
                                 <CardContent
@@ -684,7 +659,7 @@ function Cards() {
                                             color: "#494c57",
                                         }}
                                     >
-                                        Aqtau
+                                        Almaty
                                     </Typography>
                                     <Typography
                                         className="card-content-text"
@@ -693,7 +668,7 @@ function Cards() {
                                             fontFamily: "Monospace",
                                         }}
                                     >
-                                        Baıtaq teńizge tıip turǵan qala
+                                        Myń boıauly, korkem ári almaly qala
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -705,14 +680,14 @@ function Cards() {
                         >
                             <BootstrapDialogTitle
                                 id="customized-dialog-title"
-                                className="card-opened"
+                                className="card-opened flex justify-center"
                                 onClose={handleClose}
                                 sx={{
                                     backgroundColor: "#faf0d0",
                                     color: "#494c57",
                                 }}
                             >
-                                Almaty
+                                Tıisti nusqalardy tańdańyz
                             </BootstrapDialogTitle>
                             <DialogContent
                                 dividers

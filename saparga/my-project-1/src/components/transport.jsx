@@ -3,9 +3,12 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import axios from "axios";
 import React from "react";
+import { REACT_APP_BACKEND_URL } from "../constants/constants";
 
-const backEndURL_TAXI = "http://localhost:8080/transport";
-const backEndURL_ANYTIME = "http://localhost:8080/anytime";
+const backEndURL_TAXI = `${process.env.REACT_APP_BACKEND_URL}/transport`;
+// const BACKEND_URL = `${process.env.REACT_APP_BACKEND_URL}/hotel`;
+
+const backEndURL_ANYTIME = `${process.env.REACT_APP_BACKEND_URL}/anytime`;
 
 export const TransportComponent = ({ handleChange, transport }) => {
     const [parsedTaxi, setParsedTaxi] = React.useState(0);
@@ -27,7 +30,7 @@ export const TransportComponent = ({ handleChange, transport }) => {
 
     return (
         <>
-            <div className="flex flex-row justify-end mt-6">
+            <div className="flex flex-row justify-center mt-6">
                 <h2>Tasmaldaýym</h2>
             </div>
             <Box

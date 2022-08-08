@@ -15,6 +15,7 @@
 .go-to-cards {
     font-family: "Montserrat", sans-serif;
     font-size: 0.5rem;
+    font-weight: normal;
     letter-spacing: 0.25em;
     text-transform: uppercase;
     margin-top: 0.5rem;
@@ -24,9 +25,9 @@
     background-color: #f8c7ad;
     /* background-image: url(./img/title.svg); */
     /* #f8c7ad orange
-       #faf0d0 svetlyy
-       #494c57 temnyy 
-       #b1ddc6 zelenyy
+       #faf0d0 aqshyl
+       #494c57 qaralau
+       #b1ddc6 jasyl
        #131927 text
     */
     background-size: cover;
